@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView
+
+from django.views.generic import ListView, UpdateView, DeleteView
 from .models import Todo
 
 class TodoListView(ListView):
@@ -11,6 +12,12 @@ class TodoUpdateView(UpdateView):
     fields = ["title", "deadline"]
     success_url = reverse_lazy("todo_list")
 
+class TodoDeleteView(DeleteView):
+    model = Todo
+    success_url = reverse_lazy("todo_list")
+    
+    
+                           
 # Você pode manter a função `todo_list_old` para referência, mas não é mais necessária:
 def todo_list_old(request):
     nome = 'Rodrigo'

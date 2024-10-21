@@ -23,6 +23,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", TodoListView.as_view(), name="todo_list"),  # Lista de todos
     path("update/<int:pk>/", TodoUpdateView.as_view(), name="todo_update"),  # Edição de um todo
+    
 
 ]
 
