@@ -1,7 +1,24 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView
+from .models import Todo
 
-def home(request):
-    return HttpResponse('Olá mundo');
+class TodoListView(ListView):
+    model = Todo
 
-# Create your views here.
+class TodoUpdateView(UpdateView):
+    model = Todo
+    fields = ["title", "deadline"]
+    success_url = reverse_lazy("todo_list")
+
+# Você pode manter a função `todo_list_old` para referência, mas não é mais necessária:
+def todo_list_old(request):
+    nome = 'Rodrigo'
+    alunos = ['1. Ana', '2. José', '3. Bia']
+    return render(request, "todos/todo_list.html", {"nome": nome, "lista_alunos": alunos})
+
+# View para listar todos os todos
+def todo_list(request):
+    todos = Todo.objects.all()
+    return render(request, "todos/todo_list.html", {"todos": todos})
+
